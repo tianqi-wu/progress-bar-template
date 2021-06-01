@@ -1,10 +1,10 @@
 {
   "name": "progress-bar",
-  "description": "",
+  "description": "Progress Bar Project for Summer 2020 Onboarding",
   "version": "1.0.0",
   "main": "index.js",
   "license": "ISC",
-  "author": "",
+  "author": "Adalo",
   "scripts": {
     "start": "adalo dev",
     "login": "adalo login",
@@ -22,9 +22,9 @@
   },
   "devDependencies": {
     "@adalo/cli": "^0.0.42",
-    "react": "^16.9.0",
-    "react-art": "^16.6.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.13.1",
+    "react-art": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-native-web": "^0.9.5"
   }
 }

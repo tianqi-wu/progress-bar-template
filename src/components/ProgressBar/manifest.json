@@ -1,6 +1,6 @@
 {
   "displayName": "Progress Bar",
-  "defaultWidth": 160,
+  "defaultWidth": 240,
   "defaultHeight": 24,
   "components": "./index.js",
   "icon": "./example-thumbnail.png",
@@ -9,13 +9,37 @@
       "name": "text",
       "displayName": "Text",
       "type": "text",
-      "default": "Happy Hacking"
+      "default": "0%"
     },
     {
-      "name": "color",
-      "displayName": "Color",
+      "name": "color_unfinished",
+      "displayName": "Unfinished-Color",
       "type": "color",
-      "default": "#00A898"
+      "default": "#99D8C9"
+    },
+    {
+      "name": "color_finished",
+      "displayName": "Finished-Color",
+      "type": "color",
+      "default": "#2CA25F"
+    },
+    {
+      "name": "percentage",
+      "displayName": "Percentage",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "height",
+      "displayName": "Component Height",
+      "type": "number",
+      "default": 24
+    },
+    {
+      "name": "isNumberShown",
+      "displayName": "Show Percentage",
+      "type": "boolean",
+      "default": true
     }
   ]
 }

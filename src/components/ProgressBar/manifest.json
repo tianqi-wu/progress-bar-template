@@ -6,12 +6,6 @@
   "icon": "./example-thumbnail.png",
   "props": [
     {
-      "name": "text",
-      "displayName": "Text",
-      "type": "text",
-      "default": "0%"
-    },
-    {
       "name": "color_unfinished",
       "displayName": "Unfinished-Color",
       "type": "color",
@@ -28,12 +22,6 @@
       "displayName": "Percentage",
       "type": "number",
       "default": 0
-    },
-    {
-      "name": "height",
-      "displayName": "Component Height",
-      "type": "number",
-      "default": 24
     },
     {
       "name": "isNumberShown",

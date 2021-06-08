@@ -5,24 +5,36 @@ const ProgressBar = props => {
   const { color_unfinished, color_finished, text, percentage, isNumberShown } =
     props
   const [percentage_state, setPercentage] = useState(percentage)
-  const [width, setWidth] = useState(240)
+  const [width, setWidth] = useState(null)
   const height = 24
   const radius = height / 2
 
-  animVal = new Animated.Value(0);
+  let animation = new Animated.Value(0);
 
+  const onPress = () => {
+    Animated.timing(animation, {
+        toValue: percentage == 100? 100000000: 100 / (1 - percentage / 100) - 100
+    }).start()
+}
 
   const handleLayout = ({ nativeEvent }) => {
+    
+    console.log(width);
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { prevWidth } = width
 
     if (width !== prevWidth) {
       setWidth(width)
     }
+
+    
+
   }
 
+  onPress();
+
   if (width == null) {
-    return <View></View>
+    setWidth(240)
   }
 
   if (percentage > 100 || percentage < 0) {
@@ -34,25 +46,25 @@ const ProgressBar = props => {
           style={{
             flexDirection: styles.row_wrapper.flexDirection,
             height: height,
-            overflow: 'hidden',
+            overflow: 'hidden'
           }}
           onLayout={handleLayout}
           //style={{width: width}}
         >
-          <View
+          <Animated.View
             style={{
               backgroundColor: color_finished,
-              flex: percentage / 100,
+              flex: animation,
               borderTopLeftRadius: radius,
               borderBottomLeftRadius: radius,
               borderWidth: 2,
               borderColor: 'gold',
             }}
-          ></View>
+          ></Animated.View>
           <View
             style={{
               backgroundColor: color_unfinished,
-              flex: (100 - percentage) / 100,
+              flex: 100,
               borderTopRightRadius: radius,
               borderBottomRightRadius: radius,
               borderWidth: 2,

@@ -18,16 +18,40 @@
       "default": "#2CA25F"
     },
     {
-      "name": "percentage",
-      "displayName": "Percentage",
+      "name": "value",
+      "displayName": "Current Value",
       "type": "number",
       "default": 0
+    },
+    {
+      "name": "maxValue",
+      "displayName": "Maximum Value",
+      "type": "number",
+      "default": 100
     },
     {
       "name": "isNumberShown",
       "displayName": "Show Percentage",
       "type": "boolean",
       "default": true
+    },
+    {
+      "name": "borderWidth",
+      "displayName": "Border Width",
+      "type": "number",
+      "default": 2
+    },
+    {
+      "name": "borderColor",
+      "displayName": "Border Color",
+      "type": "color",
+      "default": "#FFD700"
+    },
+    {
+      "name": "borderRadius",
+      "displayName": "Border Radius",
+      "type": "number",
+      "default": 2
     }
   ]
 }

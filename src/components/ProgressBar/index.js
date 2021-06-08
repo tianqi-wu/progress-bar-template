@@ -1,83 +1,101 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Animated, Text, View, StyleSheet } from 'react-native'
 
 const ProgressBar = props => {
-  const { color_unfinished, color_finished, text, percentage, isNumberShown } =
-    props
-  const [percentage_state, setPercentage] = useState(percentage)
-  const [width, setWidth] = useState(null)
-  const height = 24
-  const radius = height / 2
+  const {
+    color_unfinished,
+    color_finished,
+    borderWidth,
+    borderColor,
+    text,
+    value,
+    maxValue,
+    isNumberShown,
+    borderRadius,
+  } = props
 
-  let animation = new Animated.Value(0);
+  const DEFAULT_VALUE = value
+
+  const DEFAULT_MAX_VALUE = maxValue
+
+  let percentage = Math.round((value / maxValue) * 100)
+
+  const [percentage_state, setPercentage] = useState(percentage)
+  const [width, setWidth] = useState(240)
+  const height = 24
+
+  let animation = new Animated.Value(0)
 
   const onPress = () => {
     Animated.timing(animation, {
-        toValue: percentage == 100? 100000000: 100 / (1 - percentage / 100) - 100
+      toValue:
+        percentage == 100 ? 100000000 : 100 / (1 - percentage / 100) - 100,
     }).start()
-}
+  }
 
   const handleLayout = ({ nativeEvent }) => {
-    
-    console.log(width);
-    const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { prevWidth } = width
+    const { width } = (nativeEvent && nativeEvent.layout) || {}
+    console.log(width)
 
     if (width !== prevWidth) {
       setWidth(width)
     }
-
-    
-
   }
 
-  onPress();
+  useEffect(() => {
+    // Update the document title using the browser API
+    onPress();
+  },[value, maxValue]);
 
-  if (width == null) {
-    setWidth(240)
-  }
-
-  if (percentage > 100 || percentage < 0) {
-    return <Text style={{ color: 'red' }}>Invalid Result</Text>
-  } else {
-    return (
-      <>
-        <View
-          style={{
-            flexDirection: styles.row_wrapper.flexDirection,
+  return (
+    <>
+      <View
+        style={[
+          styles.row_wrapper,
+          {
             height: height,
-            overflow: 'hidden'
-          }}
-          onLayout={handleLayout}
-          //style={{width: width}}
-        >
-          <Animated.View
-            style={{
-              backgroundColor: color_finished,
-              flex: animation,
-              borderTopLeftRadius: radius,
-              borderBottomLeftRadius: radius,
-              borderWidth: 2,
-              borderColor: 'gold',
-            }}
-          ></Animated.View>
-          <View
-            style={{
-              backgroundColor: color_unfinished,
-              flex: 100,
-              borderTopRightRadius: radius,
-              borderBottomRightRadius: radius,
-              borderWidth: 2,
-              borderColor: 'gold',
-            }}
-          ></View>
-          {isNumberShown && (
-            <Text style={styles.wrapper}>{`${percentage}%`}</Text>
-          )}
-        </View>
-      </>
-    )
-  }
+            overflow: 'hidden',
+          },
+        ]}
+        onLayout={handleLayout}
+        //style={{width: width}}
+      >
+        {width != null && (
+          <>
+            <Animated.View
+              style={{
+                backgroundColor: color_finished,
+                flex: percentage > 100 || percentage < 0 ? 100 : animation,
+                borderTopLeftRadius: borderRadius,
+                borderBottomLeftRadius: borderRadius,
+                borderWidth: borderWidth,
+                borderColor: borderColor,
+              }}
+            ></Animated.View>
+            <View
+              style={{
+                backgroundColor: color_unfinished,
+                flex: 100,
+                borderTopRightRadius: borderRadius,
+                borderBottomRightRadius: borderRadius,
+                borderWidth: borderWidth,
+                borderColor: borderColor,
+              }}
+            ></View>
+
+            {isNumberShown && (
+              <Text style={styles.wrapper}>
+                {percentage <= 100 && percentage >= 0
+                  ? `${percentage}%`
+                  : 'NaN%'}
+              </Text>
+            )}
+          </>
+        )}
+      </View>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({

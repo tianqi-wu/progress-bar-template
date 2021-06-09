@@ -43,10 +43,28 @@ const ProgressBar = props => {
     }
   }
 
+  const styleForAnimatedView = {
+    backgroundColor: color_finished,
+    flex: percentage > 100 || percentage < 0 ? 100 : animation,
+    borderTopLeftRadius: borderRadius,
+    borderBottomLeftRadius: borderRadius,
+    borderWidth: borderWidth,
+    borderColor: borderColor,
+  }
+
+  const styleForStaticView = {
+    backgroundColor: color_unfinished,
+    flex: 100,
+    borderTopRightRadius: borderRadius,
+    borderBottomRightRadius: borderRadius,
+    borderWidth: borderWidth,
+    borderColor: borderColor,
+  }
+
   useEffect(() => {
     // Update the document title using the browser API
-    onPress();
-  },[value, maxValue]);
+    onPress()
+  }, [value, maxValue])
 
   return (
     <>
@@ -63,26 +81,8 @@ const ProgressBar = props => {
       >
         {width != null && (
           <>
-            <Animated.View
-              style={{
-                backgroundColor: color_finished,
-                flex: percentage > 100 || percentage < 0 ? 100 : animation,
-                borderTopLeftRadius: borderRadius,
-                borderBottomLeftRadius: borderRadius,
-                borderWidth: borderWidth,
-                borderColor: borderColor,
-              }}
-            ></Animated.View>
-            <View
-              style={{
-                backgroundColor: color_unfinished,
-                flex: 100,
-                borderTopRightRadius: borderRadius,
-                borderBottomRightRadius: borderRadius,
-                borderWidth: borderWidth,
-                borderColor: borderColor,
-              }}
-            ></View>
+            <Animated.View style={styleForAnimatedView}></Animated.View>
+            <View style={styleForStaticView}></View>
 
             {isNumberShown && (
               <Text style={styles.wrapper}>
